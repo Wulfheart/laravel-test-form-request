@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Wulfheart\LaravelTestFormRequest;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -13,15 +14,36 @@ use function PHPUnit\Framework\assertContains;
 use function PHPUnit\Framework\assertStringContainsString;
 use function PHPUnit\Framework\assertTrue;
 
+/**
+ * @template T of FormRequest
+ */
 final class TestValidationResult
 {
     private Validator $validator;
     private ?ValidationException $failed;
 
-    public function __construct(Validator $validator, ?ValidationException $failed = null)
+    /** @var T $request */
+    private $request;
+
+    /**
+     * @param Validator $validator
+     * @param T $request
+     * @param ValidationException|null $failed
+     */
+    public function __construct(Validator $validator, $request, ?ValidationException $failed = null)
     {
         $this->validator = $validator;
         $this->failed = $failed;
+
+        $this->request = $request;
+    }
+
+    /**
+     * @return T
+     */
+    public function getFormRequest()
+    {
+        return $this->request;
     }
 
     public function assertPassesValidation()

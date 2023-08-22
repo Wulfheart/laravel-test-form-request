@@ -11,7 +11,13 @@ use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 trait ValidatesRequest
 {
-    protected function createRequest(string $requestClass, $headers = [])
+    /**
+     * @template T of FormRequest
+     * @param class-string<T> $requestClass
+     * @param array $headers
+     * @return TestFormRequest<T>
+     */
+    protected function createRequest(string $requestClass, array $headers = []): TestFormRequest
     {
         $symfonyRequest = SymfonyRequest::create(
             $this->prepareUrlForRequest('/test/route'),
