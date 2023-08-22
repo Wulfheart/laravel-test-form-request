@@ -1,0 +1,14 @@
+{
+    "name": "wulfheart/laravel-test-form-request",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Wulfheart\\LaravelTestFormRequest\\": "src/"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^10.3",
+        "laravel/framework": "^10.20",
+        "ext-json": "*"
+    }
+}
