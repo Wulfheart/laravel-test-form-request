@@ -79,6 +79,9 @@ final class TestValidationResult
 
         foreach ($expectedFailedRules as $expectedFailedRule => $constraints) {
             assertArrayHasKey($expectedFailedRule, $failedRules);
+            if(is_array($constraints)){
+                $constraints = implode('|', $constraints);
+            }
             assertStringContainsString($constraints, $failedRules[$expectedFailedRule]);
         }
 
