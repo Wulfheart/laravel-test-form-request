@@ -22,7 +22,7 @@ final class TestValidationResult
     private Validator $validator;
     private ?ValidationException $failed;
 
-    /** @var T $request */
+    /** @var T? $request */
     private $request;
 
     /**
@@ -30,12 +30,21 @@ final class TestValidationResult
      * @param T $request
      * @param ValidationException|null $failed
      */
-    public function __construct(Validator $validator, $request, ?ValidationException $failed = null)
+    public function __construct(Validator $validator, FormRequest|ValidationException|null $request = null)
     {
         $this->validator = $validator;
-        $this->failed = $failed;
-
-        $this->request = $request;
+        if($request instanceof ValidationException) {
+            $this->failed = $request;
+            $this->request = null;
+        }
+        if($request instanceof FormRequest) {
+            $this->failed = null;
+            $this->request = $request;
+        }
+        if($request === null) {
+            $this->failed = null;
+            $this->request = null;
+        }
     }
 
     /**

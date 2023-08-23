@@ -53,7 +53,7 @@ class TestFormRequest
             return new TestValidationResult($validator, $e);
         }
 
-        return new TestValidationResult($validator);
+        return new TestValidationResult($validator, $this->request);
     }
 
     public function by(Authenticatable $user = null)
