@@ -72,6 +72,9 @@ class TestFormRequest
         return $this;
     }
 
+    /**
+    * @return self<T>
+     */
     public function withParam(string $param, $value)
     {
         $this->request->route()->setParameter($param, $value);

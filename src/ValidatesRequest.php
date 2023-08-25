@@ -39,4 +39,9 @@ trait ValidatesRequest
 
         return new TestFormRequest($formRequest);
     }
+
+    protected function createFormRequest(string $requestClass, array $headers = []): TestFormRequest
+    {
+        return $this->createRequest($requestClass, $headers);
+    }
 }
